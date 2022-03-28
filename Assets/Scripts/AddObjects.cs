@@ -65,11 +65,13 @@ public class AddObjects : MonoBehaviour
             return null;
     }
 
-    private void OnGroundRandom()
+    private void AddObjectsByHeight(float minHeight, float maxHeight)
     {
         
+        
     }
-
+    
+    
     private void RemoveColliding(List<GameObject> collisionObjects)
     {
         List<GameObject> result = new List<GameObject>();
@@ -98,7 +100,7 @@ public class AddObjects : MonoBehaviour
 
     // Cast multiple raycasts to place objects
     public void MultipleRaycast(int nElements, GameObject objectToSpawn, bool rotate, bool avoidDoubleCollision,
-        float[] rangeScale, bool rdmRotate)
+        float[] rangeScale, bool rdmRotate, float[] heights)
     {
         GameObject parent = new GameObject();
         parent.name = objectToSpawn.name;
@@ -108,10 +110,25 @@ public class AddObjects : MonoBehaviour
         List<GameObject> objects = new List<GameObject>();
         foreach (var c in corners)
         {
+            
             GameObject o = PositionRayCast(c, objectToSpawn, rotate, parent, avoidDoubleCollision, rangeScale,
                 rdmRotate);
-            if (avoidDoubleCollision && o != null)
+
+            if (heights[0] == 0 && heights[1] == 0 && avoidDoubleCollision && o != null)
+            { 
                 objects.Add(o);
+            }
+            
+            else if (heights[0] != 0 && heights[1] != 0 && o.transform.position.y > heights[0] && o.transform.position.y < heights[1] && o != null)
+            {
+                objects.Add(o);
+            }
+            else
+            {
+                DestroyImmediate(o);
+            }
+
+            
         }
 
         if (avoidDoubleCollision)
@@ -119,12 +136,12 @@ public class AddObjects : MonoBehaviour
     }
 
     public void MultipleRaycast(int nElements, List<GameObject> objectsToSpawn, bool rotate, bool avoidDoubleCollision,
-        float[] rangeScale, bool rdmRotate)
+        float[] rangeScale, bool rdmRotate, float[] heights)
     {
         int sizeOfList = objectsToSpawn.Count;
         foreach (var o in objectsToSpawn)
         {
-            MultipleRaycast(nElements / sizeOfList, o, rotate, avoidDoubleCollision, rangeScale, rdmRotate);
+            MultipleRaycast(nElements / sizeOfList, o, rotate, avoidDoubleCollision, rangeScale, rdmRotate, heights);
         }
     }
 
@@ -203,7 +220,7 @@ public class AddObjects : MonoBehaviour
 
 
     public void AddObjectsFromEmpty(int modeAddObjects, GameObject empty, int nElements, bool rotate, bool avoidDC,
-        float limiterValue, float PNmultiplier, float[] rangeScale, bool rdmRotate)
+        float limiterValue, float PNmultiplier, float[] rangeScale, bool rdmRotate, float[] heights)
     {
         List<GameObject> objects = new List<GameObject>();
         int nChild = empty.transform.childCount;
@@ -213,7 +230,7 @@ public class AddObjects : MonoBehaviour
         }
 
         if (modeAddObjects == 0)
-            MultipleRaycast(nElements, objects, rotate, avoidDC, rangeScale, rdmRotate);
+            MultipleRaycast(nElements, objects, rotate, avoidDC, rangeScale, rdmRotate, heights);
         if (modeAddObjects == 1)
             AddObjectsPN(limiterValue, PNmultiplier, objects, rotate, nElements, avoidDC, rangeScale, rdmRotate);
     }
@@ -271,4 +288,5 @@ public class AddObjects : MonoBehaviour
         Vector3[] r = {position + topRight, position + topLeft, position + botRight, position + botLeft};
         return r;
     }
+    
 }

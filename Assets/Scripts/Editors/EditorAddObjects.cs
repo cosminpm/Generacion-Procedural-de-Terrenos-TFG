@@ -6,10 +6,10 @@ namespace Editors
     [CustomEditor(typeof(AddObjects))]
     public class EditorAddObjects : Editor
     {
-        private bool _drawCircle, _rotateAsTerrain, _avoidDoubleCollision, _rdmRotate;
-        private int _nObjects,_emptyMode;
+        private bool _drawCircle, _rotateAsTerrain, _avoidDoubleCollision, _rdmRotate, _applyBetweenHeights;
+        private int _nObjects, _emptyMode;
         private GameObject _objectToSpawn, _emptyWithObjects;
-        private float _perlinNoiseMultiplier, _limiterValue, _rsMin, _rsMax;
+        private float _perlinNoiseMultiplier, _limiterValue, _rsMin, _rsMax, _minHeight, _maxHeight;
 
         float radiosCircle;
         Color colorCircle = new Color(1, 0.8588f, 0.45098f, 0.5f);
@@ -20,7 +20,7 @@ namespace Editors
             DrawDefaultInspector();
 
             if (GUILayout.Button(new GUIContent("Preprocess",
-                    "Preprocess, must push the button to get all the necessary for this script to work")))
+                "Preprocess, must push the button to get all the necessary for this script to work")))
             {
                 addObjects.Preprocess();
             }
@@ -30,8 +30,11 @@ namespace Editors
 
             _rotateAsTerrain = EditorGUILayout.Toggle("Rotate as terrain", _rotateAsTerrain);
             _avoidDoubleCollision = EditorGUILayout.Toggle("Avoid double collision", _avoidDoubleCollision);
-            
-            
+
+            EditorGUI.BeginChangeCheck();
+            _applyBetweenHeights = EditorGUILayout.Toggle("Add objects certain height", _applyBetweenHeights);
+            EditorGUI.EndChangeCheck();
+
             _nObjects = EditorGUILayout.IntField(
                 new GUIContent("Number of elements", "The number of elements that are gonna be spawned on the map"),
                 _nObjects);
@@ -41,13 +44,22 @@ namespace Editors
             _rsMax = EditorGUILayout.FloatField("Range scale max", _rsMax);
             EditorGUILayout.LabelField("• Random rotate along Y-Axis", EditorStyles.miniBoldLabel);
             _rdmRotate = EditorGUILayout.Toggle("Rdm rotate", _rdmRotate);
-            
+
+            EditorGUI.BeginChangeCheck();
+            _minHeight = EditorGUILayout.FloatField("Min Height to add objects", _minHeight);
+            _maxHeight = EditorGUILayout.FloatField("Max Height to add objects", _maxHeight);
+            EditorGUI.EndChangeCheck();
+
             EditorGUILayout.Space();
             EditorGUILayout.LabelField("Add Objects Randomly", EditorStyles.boldLabel);
+
+
             if (GUILayout.Button(new GUIContent("Apply hits",
-                    "Raycast multiple hits and add the objects to me map, according to the parameters passed")))
+                "Raycast multiple hits and add the objects to me map, according to the parameters passed")))
             {
-                addObjects.MultipleRaycast(_nObjects, _objectToSpawn, _rotateAsTerrain, _avoidDoubleCollision,CheckIfRangeScale(_rsMin, _rsMax), _rdmRotate);
+                float[] heights = new[] {_minHeight, _maxHeight};
+                addObjects.MultipleRaycast(_nObjects, _objectToSpawn, _rotateAsTerrain, _avoidDoubleCollision,
+                    CheckIfRangeScale(_rsMin, _rsMax), _rdmRotate, heights);
             }
 
             EditorGUILayout.Space();
@@ -57,10 +69,10 @@ namespace Editors
             _limiterValue = EditorGUILayout.FloatField("Limiter Value", _limiterValue);
 
             if (GUILayout.Button(new GUIContent("Add objects PN",
-                    "Raycast multiple hits and add the objects to me map, according to the parameters passed")))
+                "Raycast multiple hits and add the objects to me map, according to the parameters passed")))
             {
                 addObjects.AddObjectsPN(_limiterValue, _perlinNoiseMultiplier, _objectToSpawn, _rotateAsTerrain,
-                    _nObjects, _avoidDoubleCollision, CheckIfRangeScale(_rsMin,_rsMax), _rdmRotate);
+                    _nObjects, _avoidDoubleCollision, CheckIfRangeScale(_rsMin, _rsMax), _rdmRotate);
             }
 
             EditorGUILayout.Space();
@@ -73,8 +85,11 @@ namespace Editors
                 _emptyMode);
             if (GUILayout.Button(new GUIContent("Add Empty Child")))
             {
-                addObjects.AddObjectsFromEmpty(_emptyMode, _emptyWithObjects, _nObjects, _rotateAsTerrain, _avoidDoubleCollision,
-                    _limiterValue, _perlinNoiseMultiplier, CheckIfRangeScale(_rsMin, _rsMax), _rdmRotate);
+                float[] heights = new[] {_minHeight, _maxHeight};
+                
+                addObjects.AddObjectsFromEmpty(_emptyMode, _emptyWithObjects, _nObjects, _rotateAsTerrain,
+                    _avoidDoubleCollision,
+                    _limiterValue, _perlinNoiseMultiplier, CheckIfRangeScale(_rsMin, _rsMax), _rdmRotate, heights);
             }
 
 
@@ -110,6 +125,11 @@ namespace Editors
                     sv.Repaint();
                 }
             }
+
+            if (_applyBetweenHeights)
+            {
+                DrawLinesHeight(Color.red);
+            }
         }
 
 
@@ -119,6 +139,25 @@ namespace Editors
                 return null;
             else
                 return new[] {min, max};
+        }
+
+
+        private void DrawLinesHeight(Color color)
+        {
+            Handles.color = color;
+
+
+            AddObjects addObjects = (AddObjects) target;
+            Vector3 origen = addObjects.transform.position;
+
+            origen = new Vector3(origen.x - 0.25f, origen.y, origen.z - 0.25f);
+            Vector3 VecMaxHeight = new Vector3(origen.x, origen.y + _maxHeight, origen.z);
+            Vector3 VecMinHeight = new Vector3(origen.x, origen.y + _minHeight, origen.z);
+            Debug.Log(_maxHeight);
+            Handles.DrawLine(VecMinHeight, VecMaxHeight, 2);
+            Handles.color = Color.red;
+            Debug.Log(_maxHeight - _minHeight);
+            Handles.Label(Vector3.Lerp(VecMaxHeight, VecMinHeight, 0.5f), "Range:" + (_maxHeight - _minHeight));
         }
     }
 }
