@@ -77,7 +77,7 @@ namespace GridGeneratorEditor
                 GetComponent<MeshFilter>().mesh = mesh;
             }
 
-            gameObject.GetComponent<Renderer>().material = new Material(Shader.Find("Diffuse"));
+            gameObject.GetComponent<Renderer>().material = Resources.Load("Materials/White",typeof(Material)) as Material;
         }
 
 
@@ -170,15 +170,13 @@ namespace GridGeneratorEditor
             {
                 if (Selection.Contains(_arrayOfVertexSphere[i]))
                 {
-                    Material material = new Material(Shader.Find("Standard"));
-                    material.color = Color.red;
+                    Material material = Resources.Load("Materials/Red",typeof(Material)) as Material;
                     _arrayOfVertexSphere[i].gameObject.GetComponent<Renderer>().material = material;
                 }
 
                 else
                 {
-                    Material material = new Material(Shader.Find("Standard"));
-                    material.color = Color.white;
+                    Material material =Resources.Load("Materials/White",typeof(Material)) as Material;
                     _arrayOfVertexSphere[i].gameObject.GetComponent<Renderer>().material = material;
                 }
             }
@@ -206,7 +204,7 @@ namespace GridGeneratorEditor
             {
                 {
                     _arrayOfVertexSphere[i].gameObject.GetComponent<MeshRenderer>().material =
-                        new Material(Shader.Find("Standard"));
+                        Resources.Load("Materials/White",typeof(Material)) as Material;
                 }
             }
         }

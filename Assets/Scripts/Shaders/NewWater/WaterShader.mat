@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Terrain
-  m_Shader: {fileID: -6465566751694194690, guid: e5a264c60807ff9459fed536a490c30b, type: 3}
+  m_Name: WaterShader
+  m_Shader: {fileID: -6465566751694194690, guid: 265d25ce10ddb624dbe074c632ee5fdc, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -19,8 +19,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - Texture2D_2816c414df0f41a5a61e820c24c9b26d:
-        m_Texture: {fileID: 2800000, guid: f9dea33f9f989a140a89f56fa567fd5c, type: 3}
+    - Texture2D_0555f63ac8e740e7bf29c7c3e4f014b1:
+        m_Texture: {fileID: 2800000, guid: a96cbc207e6216a48883d383432f9c59, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_d92927e45cd043de9cceb782c684771d:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -80,9 +84,17 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Vector1_001bbb6981b94ac281eea59b13c68b85: 0.05
-    - Vector1_03ccdb81c5db4a20a192b8fc4c65ffd5: 1.58
-    - Vector1_3b42277d8c584a01a2c9aeb313d7ae41: -0.16
+    - Vector1_0f1220853a99466cab7ca41f45fb80f7: 2.54
+    - Vector1_27296c69d4d149f2af6b206790603184: 2.55
+    - Vector1_27c22e65ac94460dbdeee9bcd595cb14: 0.09
+    - Vector1_2f0742792d944e8183113b5d28396ac8: 0.05
+    - Vector1_4ffe1548f94d48d191a847bc90e3b88f: 0.98
+    - Vector1_73f1a0a6a7e24b1cad22ab18177eb9b2: 0.19
+    - Vector1_8405ad3b49a542d09140a1482f884bde: 0.35
+    - Vector1_9771562759f4431d9ed5af7af6bde330: 0.22
+    - Vector1_b882eb0bb9804d069c877e7840e96b18: 6.16
+    - Vector1_c0d42f2fde5344098957b454a613adcc: -0.05
+    - Vector1_df0c526b971f4b5b89f8ceb65ca2df6a: 0
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -94,13 +106,12 @@ Material:
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
-    - _GlossMapScale: 1
-    - _Glossiness: 0.5
-    - _GlossyReflections: 1
+    - _GlossMapScale: 0
+    - _Glossiness: 0
+    - _GlossyReflections: 0
     - _Metallic: 0
-    - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.02
+    - _Parallax: 0.005
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -108,12 +119,29 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _UVSec: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_1b88f4e5d184428b9ecdc747264ae735: {r: 0, g: 0.40591705, b: 0.5188679, a: 0}
+    - Color_5a21803643c047c189f670a6ec9c703b: {r: 0, g: 0, b: 0, a: 0}
+    - Color_8394b3b8c853448f9baf4c662ba6545a: {r: 0.8066038, g: 0.91499066, b: 1, a: 0}
+    - Color_92c265df965848cdb39c1d3670c45060: {r: 0.6061766, g: 0.8270736, b: 0.9245283, a: 0}
+    - Vector2_03a1adbce5834160b78e72285844a9a7: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
+--- !u!114 &3723819989596011034
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  version: 4

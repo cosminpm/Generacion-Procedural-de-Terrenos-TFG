@@ -62,6 +62,9 @@
      <Compile Include="Assets\Scripts\Editors\EditorPaintTexture.cs" />
      <Compile Include="Assets\Scripts\GridTerrain.cs" />
      <Compile Include="Assets\Scripts\PaintTexture.cs" />
+     <Compile Include="Assets\Scripts\LightingPreset.cs" />
+     <Compile Include="Assets\Scripts\LightingManager.cs" />
+     <None Include="Assets\Nicrom\PolyPacks\Wind\Assets\Shaders\ASE\LPW_Vegetation.shader" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
  </Reference>

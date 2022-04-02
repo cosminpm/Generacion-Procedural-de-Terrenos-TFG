@@ -65,13 +65,7 @@ public class AddObjects : MonoBehaviour
             return null;
     }
 
-    private void AddObjectsByHeight(float minHeight, float maxHeight)
-    {
-        
-        
-    }
-    
-    
+
     private void RemoveColliding(List<GameObject> collisionObjects)
     {
         List<GameObject> result = new List<GameObject>();
@@ -114,18 +108,21 @@ public class AddObjects : MonoBehaviour
             GameObject o = PositionRayCast(c, objectToSpawn, rotate, parent, avoidDoubleCollision, rangeScale,
                 rdmRotate);
 
-            if (heights[0] == 0 && heights[1] == 0 && avoidDoubleCollision && o != null)
+            if (heights[0] == 0 && heights[1] == 0 && o != null)
             { 
                 objects.Add(o);
+                Debug.Log("COLOCE OBJETO");
             }
             
             else if (heights[0] != 0 && heights[1] != 0 && o.transform.position.y > heights[0] && o.transform.position.y < heights[1] && o != null)
             {
                 objects.Add(o);
+                Debug.Log("COLOCE OBJETO");
             }
             else
             {
                 DestroyImmediate(o);
+                Debug.Log("NOOOO");
             }
 
             
@@ -283,9 +280,15 @@ public class AddObjects : MonoBehaviour
             if (_vertices[i].x <= botRight.x && _vertices[i].z >= botRight.z)
                 botRight = _vertices[i];
         }
-
+        
         var position = transform.position;
-        Vector3[] r = {position + topRight, position + topLeft, position + botRight, position + botLeft};
+        Vector3[] r = { topRight,  topLeft, botRight,  botLeft};
+        
+        for (var index = 0; index < r.Length; index++)
+        {
+            r[index] = transform.TransformPoint(r[index]);
+        }
+        
         return r;
     }
     
