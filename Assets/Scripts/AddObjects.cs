@@ -34,7 +34,7 @@ public class AddObjects : MonoBehaviour
     }
 
     // Raycast an object
-    public GameObject PositionRayCast(Vector3 origin, GameObject objectToSpawn, bool rotate, GameObject parent,
+    private GameObject PositionRayCast(Vector3 origin, GameObject objectToSpawn, bool rotate, GameObject parent,
         bool avoidDoubleCollision, float[] rangeBetween, bool randomRotate)
     {
         RaycastHit hit;
@@ -232,7 +232,7 @@ public class AddObjects : MonoBehaviour
             AddObjectsPN(limiterValue, PNmultiplier, objects, rotate, nElements, avoidDC, rangeScale, rdmRotate);
     }
 
-
+    
     private float[] GetRandomBetweenSquareSize()
     {
         float[] squareSizes = GetSizeSquare();

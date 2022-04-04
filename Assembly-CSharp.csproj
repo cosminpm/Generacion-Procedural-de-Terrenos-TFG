@@ -52,6 +52,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\LightingManager.cs" />
      <Compile Include="Assets\Scripts\AddObjects.cs" />
      <Compile Include="Assets\Scripts\Editors\EditorGridTerrain.cs" />
      <Compile Include="Assets\Scripts\Editors\EditorAddObjects.cs" />
@@ -61,9 +62,12 @@
      <Compile Include="Assets\Scripts\Extras.cs" />
      <Compile Include="Assets\Scripts\Editors\EditorPaintTexture.cs" />
      <Compile Include="Assets\Scripts\GridTerrain.cs" />
-     <Compile Include="Assets\Scripts\PaintTexture.cs" />
      <Compile Include="Assets\Scripts\LightingPreset.cs" />
-     <Compile Include="Assets\Scripts\LightingManager.cs" />
+     <Compile Include="Assets\Scripts\PaintTexture.cs" />
+     <Compile Include="Assets\mouseLook.cs" />
+     <Compile Include="Assets\PlayerMovement.cs" />
+     <Compile Include="Assets\ChangeCenter.cs" />
+     <None Include="Assets\BrokenVector\LowPolyTreePack\README.txt" />
      <None Include="Assets\Nicrom\PolyPacks\Wind\Assets\Shaders\ASE\LPW_Vegetation.shader" />
  <Reference Include="UnityEngine">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2020.3.13f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>

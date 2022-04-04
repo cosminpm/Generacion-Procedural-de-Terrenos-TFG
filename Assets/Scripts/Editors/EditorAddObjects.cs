@@ -36,7 +36,7 @@ namespace Editors
             EditorGUI.EndChangeCheck();
 
             _nObjects = EditorGUILayout.IntField(
-                new GUIContent("Number of elements", "The number of elements that are gonna be spawned on the map"),
+                new GUIContent("Number of rays", "The number of elements that are gonna be spawned on the map"),
                 _nObjects);
 
             EditorGUILayout.LabelField("• Random scale object", EditorStyles.miniBoldLabel);
